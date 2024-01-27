@@ -32,3 +32,26 @@ pip install -r requirements.txt
 find . -type d -name "__pycache__" -not -path '*/env/*' -not -path '*/node_modules/*' -exec rm -r {} +
 
 echo "Python development environment setup successful and clean."
+
+echo "Installing Node and npm"
+
+if [ ! -d "/usr/bin/node" ]; then
+    echo "Node not installed, installing node."
+    sudo install node
+    npm install
+else
+    echo "Node already exists"
+    npm install
+fi
+
+echo "node and npm installed."
+echo "Installing SQLite3 Database"
+
+if [ ! -d "/user/bin/sqlite3 "]; then
+    echo "SQLite3 already exists"
+else
+    echo "SQLite3 not installed, installing SQLite3."
+    sudo apt-get install sqlite3
+fi
+echo "Create a database using the bin/db script."
+echo "Finished setup."
