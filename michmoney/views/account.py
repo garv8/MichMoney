@@ -20,19 +20,25 @@ def show_account():
     )
     account = cur.fetchone()
 
-    cur = connection.execute("SELECT * FROM tokens WHERE owner = ?", (flask.session["username"],))
+    cur = connection.execute(
+        "SELECT * FROM tokens WHERE owner = ?", (flask.session["username"],))
     tokens = cur.fetchone()
 
     created_et = (
-        datetime.datetime.strptime(account["created"], "%Y-%m-%d %H:%M:%S") - datetime.timedelta(hours=5)
+        datetime.datetime.strptime(
+            account["created"], "%Y-%m-%d %H:%M:%S") - datetime.timedelta(hours=5)
     ).strftime("%Y-%m-%d %I:%M %p") + " ET"
 
     expiration_et = (
-        datetime.datetime.strptime(tokens["expires"], "%Y-%m-%d %H:%M:%S") - datetime.timedelta(hours=5)
+        datetime.datetime.strptime(
+            tokens["expires"], "%Y-%m-%d %H:%M:%S") - datetime.timedelta(hours=5)
     ).strftime("%Y-%m-%d %I:%M %p") + " ET"
 
     context = {
-        "username": account["username"],
+        "user": {
+            "is_authenticated": is_logged_in(),
+            "username": account["username"]
+        },
         "email": account["email"],
         "created": created_et,
         "expiration_date": expiration_et,
