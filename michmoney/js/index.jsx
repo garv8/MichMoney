@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from "react";
-import Data from "./components/data";
+import Forex from "./components/forex.jsx";
+import Earnings from "./components/earnings.jsx";
 
-function Index() {
+function IndexForex() {
     return (
         <div className="bg-gray-dark">
             <div id="content" className="mx-16" style={{width:"-webkit-fill-available"}}>
                 <div>
-                    <Data name={name} className="flex"/>
+                    <Forex name={name} className="flex"/>
                 </div>
             </div>
         </div>
     )
 }
 
-export default Index;
+function IndexEarnings() {
+    return (
+        <div className="bg-gray-dark">
+            <div id="content" className="mx-16" style={{width:"-webkit-fill-available"}}>
+                <div>
+                    <Earnings name={name} className="flex"/>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export { IndexForex, IndexEarnings };

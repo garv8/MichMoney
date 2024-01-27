@@ -1,6 +1,6 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import Index from "./index";
+import { IndexForex, IndexEarnings } from "./index";
 
 // Create a root
 const root_forex = createRoot(document.getElementById("reactEntryForex"));
@@ -11,12 +11,12 @@ const root_earnings = createRoot(document.getElementById("reactEntryEarnings"));
 // Insert the post component into the DOM
 root_forex.render(
   <StrictMode>
-    <Index />
+    <IndexForex />
   </StrictMode>,
 );
 
 root_earnings.render(
   <StrictMode>
-    <Index />
+    <IndexEarnings />
   </StrictMode>,
 );
