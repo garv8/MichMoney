@@ -1,0 +1,24 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE users(
+  username VARCHAR(20) NOT NULL,
+  password VARCHAR(256) NOT NULL,
+  created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  email VARCHAR(256) NOT NULL,
+  PRIMARY KEY(username)
+);
+
+CREATE TABLE tokens(
+    owner VARCHAR(20) NOT NULL,
+    token VARCHAR(32) NOT NULL,
+    expires DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    uses INT NOT NULL DEFAULT 10,
+    PRIMARY KEY(token),
+    FOREIGN KEY(owner) REFERENCES users(username) ON DELETE CASCADE
+);
+
+CREATE TABLE admins(
+    username VARCHAR(20) NOT NULL,
+    PRIMARY KEY(username),
+    FOREIGN KEY(username) REFERENCES users(username) ON DELETE CASCADE
+);
