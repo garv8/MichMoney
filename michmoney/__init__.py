@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 app.config.from_object("michmoney.config")
 
-# app.config.from_envvar("WOLVWEALTH_SETTINGS", silent=True)
+# app.config.from_envvar("MICHMONEY_SETTINGS", silent=True)
 
 import michmoney.api
 import michmoney.model
