@@ -3,62 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoltLightning, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { PieChart } from 'react-minimal-pie-chart';
 
-function getRandomHexColor() {
-    let letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
+
 
 function Data({ name }) {
-    const algorithms = [
-        "Mean Variance",
-        "Black-Litterman",
-        "Hierarchical Risk Parity",
-        "Critical Line"
-    ]
-    const riskModels = [
-        "Sample Covariance",
-        "Semicovariance",
-        "Exp Covariance",
-        "Ledoit Wolf",
-        "Ledoit Wolf Constant Variance",
-        "Ledoit Wolf Single Factor",
-        "Ledoit Wolf Constant Correlation",
-        "Oracle Approximating"
-    ];
-    const outputTypes = [
-        "shares", "weights"
-    ]
-
-    const [moneyInAccount, setMoneyInAccount] = useState(256);
-    const [algorithmSelection, setAlgorithmSelection] = useState(algorithms[0]);
-    const [riskModelSelection, setRiskModelSelection] = useState(algorithms[0]);
-    const [outputType, setOutputType] = useState("shares"); // "weights" || "shares"
-    const [algoArgs, setAlgoArgs] = useState(""); // i.e. "{'risk_aversion': 1.0}"
-    const [hasOptimized, setHasOptimized] = useState(false);
-    const [portfolioJSON, setPortfolioJSON] = useState({}); 
-    // same as data
-    const initialTickerSelection = [
-        {symbol:"AAPL", count:10},
-        {symbol:"AMZN", count:20},
-        {symbol:"NFLX", count:30},
-        {symbol:"GOOGL", count:40},
-        {symbol:"TSLA", count:50},
-    ];
-    const [tickerSelection, setTickerSelection] = useState(initialTickerSelection); // a list of user selected tickers 
-    const [newTickerNameInput, setNewTickerNameInput] = useState("");
-    const [newTickerCountInput, setNewTickerCountInput] = useState(0);
-    const data = [
-        // set color to random hex value
-        { title: 'META', value: 10, color:getRandomHexColor() },
-        { title: 'AAPL', value: 20, color:getRandomHexColor() },
-        { title: 'AMZN', value: 30, color:getRandomHexColor() },
-        { title: 'NFLX', value: 40, color:getRandomHexColor() },
-        { title: 'GOOGL', value: 50, color:getRandomHexColor() },
-    ];
+    
     const [chartData, setChartData] = useState(data);
 
     const handleNewTickerNameInput = (e) => {
@@ -78,9 +26,6 @@ function Data({ name }) {
     const handleInitialCashChange = (e) => {
         console.log("updated cash amount");
         setMoneyInAccount(e.target.value);
-    }
-    const handleRiskModelChange = (e) => {
-        console.log(e.target.value);
     }
     const handleOutputTypeChange = (e) => {
         setOutputType(e.target.value);
@@ -205,7 +150,7 @@ function Data({ name }) {
             <div className="flex flex-col">
                 <div id="contentHeader" className="flex flex-row mb-8">
                     <h1 className="text-4xl font-bold mr-auto">
-                        Your dashboard
+                        Forex
                     </h1>
                 </div>
                 <div className="flex flex-grow flex-col">

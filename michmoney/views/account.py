@@ -36,8 +36,6 @@ def show_account():
         "email": account["email"],
         "created": created_et,
         "expiration_date": expiration_et,
-        "uses": tokens["uses"],
-        "api_key": tokens["token"],
     }
 
     return render_template("account.html", **context)
