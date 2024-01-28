@@ -7,9 +7,8 @@ import {
   Geographies,
   Geography,
   Sphere,
-  Graticule
+  Graticule,
 } from "react-simple-maps";
-import { Tooltip } from "react-tooltip";
 
 const geoUrl = "/static/util/worldgeo.json";
 
@@ -29,7 +28,7 @@ const tooltip = d3.select(node)
     .style("padding", "5px")
     .style("margin-bottom", '51px')
 
-const ChoroplethMap = ({ setTooltipContent, tooltipContent }) => {
+const ChoroplethMap = ({ onHover }) => {
   const [data, setData] = useState([]);
   const [curr_year, setCurrYear] = useState(1995); // 1995 - 2017
 
@@ -39,39 +38,37 @@ const ChoroplethMap = ({ setTooltipContent, tooltipContent }) => {
       //   setData(data["1995"]);
       //   console.log(data["1995"]);
       // });
-      const newData = await csv('/static/util/vulnerability.csv');
-      setData(newData);};
+      const newData = await csv("/static/util/vulnerability.csv");
+      setData(newData);
+    };
 
     fetchData();
 
     const interval = setInterval(() => {
       setCurrYear((prevYear) => (prevYear < 2017 ? prevYear + 1 : 1995));
       fetchData();
-    }
-    , 5000);
+    }, 5000);
 
     return () => clearInterval(interval);
-
   }, [curr_year]);
 
   const handleMouseEnter = (geo, currentData) => {
-    const tooltipText = currentData ? `${geo.properties.name}: ${currentData[String(curr_year)]}` : `${geo.properties.name}: N/A`;
-    console.log(tooltipText);
-    tooltip.style("opacity", 1)
-    setTooltipContent(tooltipText);
+    const tooltipText = currentData
+      ? `${geo.properties.name}: ${parseFloat(currentData[String(curr_year)]).toFixed(3)}`
+      : `${geo.properties.name}: N/A`;
+    onHover(tooltipText);
   };
 
   const handleMouseLeave = () => {
-    tooltip.style("opacity", 0)
-    setTooltipContent("");
+    onHover(""); // Clear the label content on mouse leave
   };
 
   return (
-    <div>
+    <div className="w-[100%]">
       <ComposableMap
         projectionConfig={{
           rotate: [-10, 0, 0],
-          scale: 147
+          scale: 135,
         }}
       >
         <Sphere stroke="#444444" strokeWidth={0.5} />
@@ -90,17 +87,17 @@ const ChoroplethMap = ({ setTooltipContent, tooltipContent }) => {
                     style={{
                       default: {
                         fill: d ? colorScale(+d[String(curr_year)]) : "#000",
-                        outline: "none"
+                        outline: "none",
                       },
                       hover: {
                         fill: d ? colorScale(+d[String(curr_year)]) : "#000",
                         outline: "none",
-                        cursor: "crosshair"
+                        cursor: "crosshair",
                       },
                       pressed: {
                         fill: d ? colorScale(+d[String(curr_year)]) : "#000",
-                        outline: "none"
-                      }
+                        outline: "none",
+                      },
                     }}
                     onMouseEnter={() => handleMouseEnter(geo, d)}
                     onMouseLeave={handleMouseLeave}
@@ -111,10 +108,6 @@ const ChoroplethMap = ({ setTooltipContent, tooltipContent }) => {
           </Geographies>
         )}
       </ComposableMap>
-      
-      <div style={{ position: 'relative' }}>
-        <Tooltip style={{ visibility: 'visible', position: 'absolute', top: '50', left: '50' }} className="h-full w-full bg-pink">{tooltipContent}</Tooltip>
-      </div>
     </div>
   );
 };
