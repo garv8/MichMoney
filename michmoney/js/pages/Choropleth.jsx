@@ -23,10 +23,13 @@ const ChoroplethMap = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      // csv('/static/util/vulnerability.csv').then((data) => {
+      //   setData(data["1995"]);
+      //   console.log(data["1995"]);
+      // });
       const newData = await csv('/static/util/vulnerability.csv');
-      setData(newData[curr_year]);
-    };
-    
+      setData(newData);};
+
     fetchData();
 
     const interval = setInterval(() => {
@@ -41,6 +44,7 @@ const ChoroplethMap = () => {
 
   const handleMouseEnter = (geo, currentData) => {
     const tooltipText = currentData ? `${geo.properties.name}: ${currentData[String(curr_year)]}` : `${geo.properties.name}: N/A`;
+    console.log(tooltipText);
     setTooltipContent(tooltipText);
   };
 
@@ -63,6 +67,7 @@ const ChoroplethMap = () => {
             {({ geographies }) =>
               geographies.map((geo) => {
                 const d = data.find((s) => s.ISO3 === geo.id);
+                //console.log(d);
                 return (
                   <Geography
                     key={geo.rsmKey}
