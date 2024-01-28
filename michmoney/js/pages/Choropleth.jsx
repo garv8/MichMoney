@@ -13,7 +13,7 @@ import { Tooltip } from "react-tooltip";
 const geoUrl = "/static/util/worldgeo.json";
 
 const colorScale = scaleLinear()
-  .domain([0, 1])
+  .domain([-1, 1])
   .range(["#FF0000", "#00FF00"]);
 
 const ChoroplethMap = () => {
@@ -27,7 +27,7 @@ const ChoroplethMap = () => {
       //   setData(data["1995"]);
       //   console.log(data["1995"]);
       // });
-      const newData = await csv('/static/util/vulnerability.csv');
+      const newData = await csv('/static/util/forex_prices.csv');
       setData(newData);};
 
     fetchData();
