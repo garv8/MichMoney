@@ -1,14 +1,5 @@
 .earnings-class {
     display: flex;
-    /* Enable Flexbox */
+    flex-direction: column;
     justify-content: center;
-    /* Center horizontally */
-    align-items: center;
-    /* Center vertically */
-    width: 1vh;
-    /* Width as per your requirement */
-    height: 1vw;
-    /* Height as per your requirement */
-    margin: 2vh 2vw;
-    /* Center the section itself */
 }
