@@ -7,13 +7,13 @@ import {
   Geographies,
   Geography,
   Sphere,
-  Graticule,
+  Graticule
 } from "react-simple-maps";
 
 const geoUrl = "/static/util/worldgeo.json";
 
 const colorScale = scaleLinear()
-  .domain([0, 1])
+  .domain([-1, 1])
   .range(["#FF0000", "#00FF00"]);
 const node = document.createElement('div');
 // create a tooltip
@@ -38,9 +38,9 @@ const ChoroplethMap = ({ onHover }) => {
       //   setData(data["1995"]);
       //   console.log(data["1995"]);
       // });
-      const newData = await csv("/static/util/vulnerability.csv");
-      setData(newData);
-    };
+
+      const newData = await csv('/static/util/forex_prices.csv');
+      setData(newData);};
 
     fetchData();
 
@@ -60,11 +60,11 @@ const ChoroplethMap = ({ onHover }) => {
   };
 
   const handleMouseLeave = () => {
-    onHover(""); // Clear the label content on mouse leave
+    onHover("");
   };
 
   return (
-    <div className="w-[100%]">
+    <div>
       <ComposableMap
         projectionConfig={{
           rotate: [-10, 0, 0],
