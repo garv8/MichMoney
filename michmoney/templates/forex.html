@@ -74,12 +74,10 @@
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <section class="w-[75%] h-full mx-auto">
-        <div id="reactEntry">
-            <!-- This div is used by React to render the app -->
-        </div>
-        <script type="text/javascript" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
-    </section>
+    <div id="reactEntry">
+        <!-- This div is used by React to render the app -->
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
 
 
     <footer class="w-[90%] h-10 mx-auto">

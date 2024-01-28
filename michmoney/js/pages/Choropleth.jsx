@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { csv } from "d3-fetch";
 import { scaleLinear } from "d3-scale";
+import * as d3 from "d3";
 import {
   ComposableMap,
   Geographies,
@@ -8,17 +9,27 @@ import {
   Sphere,
   Graticule
 } from "react-simple-maps";
-import { Tooltip } from "react-tooltip";
 
 const geoUrl = "/static/util/worldgeo.json";
 
 const colorScale = scaleLinear()
   .domain([-1, 1])
   .range(["#FF0000", "#00FF00"]);
+const node = document.createElement('div');
+// create a tooltip
+const tooltip = d3.select(node)
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+    .style("margin-bottom", '51px')
 
-const ChoroplethMap = () => {
+const ChoroplethMap = ({ onHover }) => {
   const [data, setData] = useState([]);
-  const [tooltipContent, setTooltipContent] = useState("");
   const [curr_year, setCurrYear] = useState(1995); // 1995 - 2017
 
   useEffect(() => {
@@ -27,6 +38,7 @@ const ChoroplethMap = () => {
       //   setData(data["1995"]);
       //   console.log(data["1995"]);
       // });
+
       const newData = await csv('/static/util/forex_prices.csv');
       setData(newData);};
 
@@ -35,33 +47,28 @@ const ChoroplethMap = () => {
     const interval = setInterval(() => {
       setCurrYear((prevYear) => (prevYear < 2017 ? prevYear + 1 : 1995));
       fetchData();
-    }
-    , 5000);
+    }, 5000);
 
     return () => clearInterval(interval);
-
   }, [curr_year]);
 
   const handleMouseEnter = (geo, currentData) => {
-    const tooltipText = currentData ? `${geo.properties.name}: ${currentData[String(curr_year)]}` : `${geo.properties.name}: N/A`;
-    console.log(tooltipText);
-    setTooltipContent(tooltipText);
+    const tooltipText = currentData
+      ? `${geo.properties.name}: ${parseFloat(currentData[String(curr_year)]).toFixed(3)}`
+      : `${geo.properties.name}: N/A`;
+    onHover(tooltipText);
   };
 
   const handleMouseLeave = () => {
-    setTooltipContent("​");
-    // THERE'S A ZERO WIDTH SPACE ABOVE!!!!! NOT EMPTY STRING!!!!! BE WARNED!!!!
+    onHover("");
   };
 
   return (
     <div>
-      <div>
-        <p class="flex justify-center text-white">{tooltipContent}</p>
-      </div>
       <ComposableMap
         projectionConfig={{
           rotate: [-10, 0, 0],
-          scale: 147
+          scale: 135,
         }}
       >
         <Sphere stroke="#444444" strokeWidth={0.5} />
@@ -80,17 +87,17 @@ const ChoroplethMap = () => {
                     style={{
                       default: {
                         fill: d ? colorScale(+d[String(curr_year)]) : "#000",
-                        outline: "none"
+                        outline: "none",
                       },
                       hover: {
                         fill: d ? colorScale(+d[String(curr_year)]) : "#000",
                         outline: "none",
-                        cursor: "crosshair"
+                        cursor: "crosshair",
                       },
                       pressed: {
                         fill: d ? colorScale(+d[String(curr_year)]) : "#000",
-                        outline: "none"
-                      }
+                        outline: "none",
+                      },
                     }}
                     onMouseEnter={() => handleMouseEnter(geo, d)}
                     onMouseLeave={handleMouseLeave}
@@ -101,9 +108,6 @@ const ChoroplethMap = () => {
           </Geographies>
         )}
       </ComposableMap>
-      <div style={{ position: 'relative' }}>
-        <Tooltip style={{ visibility: 'visible', position: 'absolute', top: '0', left: '0' }} className="h-full w-full bg-white">{tooltipContent}</Tooltip>
-      </div>
     </div>
   );
 };
