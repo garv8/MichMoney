@@ -624,9 +624,8 @@ video {
   position: absolute;
 }
 
-.mx-16 {
-  margin-left: 4rem;
-  margin-right: 4rem;
+.relative {
+  position: relative;
 }
 
 .mx-auto {
@@ -954,6 +953,10 @@ video {
 
 .capitalize {
   text-transform: capitalize;
+}
+
+.italic {
+  font-style: italic;
 }
 
 .leading-none {
