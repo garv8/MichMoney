@@ -49,11 +49,15 @@ const ChoroplethMap = () => {
   };
 
   const handleMouseLeave = () => {
-    setTooltipContent("");
+    setTooltipContent("​");
+    // THERE'S A ZERO WIDTH SPACE ABOVE!!!!! NOT EMPTY STRING!!!!! BE WARNED!!!!
   };
 
   return (
     <div>
+      <div>
+        <p class="flex justify-center text-white">{tooltipContent}</p>
+      </div>
       <ComposableMap
         projectionConfig={{
           rotate: [-10, 0, 0],
