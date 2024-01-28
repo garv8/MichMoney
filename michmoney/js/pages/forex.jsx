@@ -1,10 +1,18 @@
 import React from "react";
-
+import ChoroplethMap from "./Choropleth";
 
 const Forex = () => {
-    return (
-        <section class="text-white">Test Forex</section>
-    )
+      const forexData = {
+        'USA': 75.5,
+        'CAN': 60.8,
+        'GBR': 82.3,
+        // Add more countries and values as needed
+      };
+    
+      return (
+        <ChoroplethMap />
+      );
+    
 };
 
 export default Forex;

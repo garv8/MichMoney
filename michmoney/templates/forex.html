@@ -19,7 +19,7 @@
     <link rel="icon" href="/static/img/logo.png" type="image/png">
 </head>
 
-<body style="height:100vh;" class="bg-gray">
+<body class="h-screen bg-gray-dark">
     <header class="fixed w-screen">
         <nav class="px-5">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -74,10 +74,12 @@
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <div id="reactEntry" style="height:100%; padding-top: 60px;">
-        <!-- This div is used by React to render the app -->
-    </div>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    <section class="w-[75%] h-[80%] mx-auto">
+        <div id="reactEntry">
+            <!-- This div is used by React to render the app -->
+        </div>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    </section>
 
 
     <footer class="w-[90%] h-10 mx-auto">
