@@ -1,7 +1,7 @@
 # MichMoney
 
 ## Inspiration
-We were inspired by the democratization of stocks and cryptocurrencies in the wake of the popularization of platforms like Robinhood and CoinBasen to bring Forex into the hands of the people. Additionally, we want to create a world where the average person can extract the same amount of actionable insights out of earnings calls as the industry members who spend all their time spewing murky financial jargon.
+We were inspired by the democratization of stocks and cryptocurrencies in the wake of the popularization of platforms like Robinhood and CoinBase to bring Forex into the hands of the people. Additionally, we want to create a world where the average person can extract the same amount of actionable insights out of earnings calls as the industry members who spend all their time spewing murky financial jargon.
 
 ## What it does
 MichMoney is a web application that has two main features: an earnings call transcript sentiment analyzer, and an intuitive visualizer of global Forex prices. It supports modern, cryptographically-secure authentication protocols and practices to ensure users and their data are safe and secure. 
