@@ -13,21 +13,34 @@ import { Tooltip } from "react-tooltip";
 const geoUrl = "/static/util/worldgeo.json";
 
 const colorScale = scaleLinear()
-  .domain([0.29, 0.68])
+  .domain([0, 1])
   .range(["#FF0000", "#00FF00"]);
 
 const ChoroplethMap = () => {
   const [data, setData] = useState([]);
   const [tooltipContent, setTooltipContent] = useState("");
+  const [curr_year, setCurrYear] = useState(1995); // 1995 - 2017
 
   useEffect(() => {
-    csv('/static/util/vulnerability.csv').then((data) => {
-      setData(data);
-    });
-  }, []);
+    const fetchData = async () => {
+      const newData = await csv('/static/util/vulnerability.csv');
+      setData(newData[curr_year]);
+    };
+    
+    fetchData();
+
+    const interval = setInterval(() => {
+      setCurrYear((prevYear) => (prevYear < 2017 ? prevYear + 1 : 1995));
+      fetchData();
+    }
+    , 5000);
+
+    return () => clearInterval(interval);
+
+  }, [curr_year]);
 
   const handleMouseEnter = (geo, currentData) => {
-    const tooltipText = currentData ? `${geo.properties.name}: ${currentData["2017"]}` : `${geo.properties.name}: N/A`;
+    const tooltipText = currentData ? `${geo.properties.name}: ${currentData[String(curr_year)]}` : `${geo.properties.name}: N/A`;
     setTooltipContent(tooltipText);
   };
 
@@ -54,19 +67,19 @@ const ChoroplethMap = () => {
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill={d ? colorScale(+d["2017"]) : "#000"}
+                    fill={d ? colorScale(+d[String(curr_year)]) : "#000"}
                     style={{
                       default: {
-                        fill: d ? colorScale(+d["2017"]) : "#000",
+                        fill: d ? colorScale(+d[String(curr_year)]) : "#000",
                         outline: "none"
                       },
                       hover: {
-                        fill: d ? colorScale(+d["2017"]) : "#000",
+                        fill: d ? colorScale(+d[String(curr_year)]) : "#000",
                         outline: "none",
-                        cursor: "pointer"
+                        cursor: "crosshair"
                       },
                       pressed: {
-                        fill: d ? colorScale(+d["2017"]) : "#000",
+                        fill: d ? colorScale(+d[String(curr_year)]) : "#000",
                         outline: "none"
                       }
                     }}
