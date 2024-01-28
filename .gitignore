@@ -17,3 +17,4 @@ bundle.js
 .vscode/
 *.DS_Store
 earnings-edge/static/css/output.css
+bundle.js.map
