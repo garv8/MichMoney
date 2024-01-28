@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { csv } from "d3-fetch";
 import { scaleLinear } from "d3-scale";
+import * as d3 from "d3";
 import {
   ComposableMap,
   Geographies,
@@ -15,10 +16,21 @@ const geoUrl = "/static/util/worldgeo.json";
 const colorScale = scaleLinear()
   .domain([0, 1])
   .range(["#FF0000", "#00FF00"]);
+const node = document.createElement('div');
+// create a tooltip
+const tooltip = d3.select(node)
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "2px")
+    .style("border-radius", "5px")
+    .style("padding", "5px")
+    .style("margin-bottom", '51px')
 
-const ChoroplethMap = () => {
+const ChoroplethMap = ({ setTooltipContent, tooltipContent }) => {
   const [data, setData] = useState([]);
-  const [tooltipContent, setTooltipContent] = useState("");
   const [curr_year, setCurrYear] = useState(1995); // 1995 - 2017
 
   useEffect(() => {
@@ -45,10 +57,12 @@ const ChoroplethMap = () => {
   const handleMouseEnter = (geo, currentData) => {
     const tooltipText = currentData ? `${geo.properties.name}: ${currentData[String(curr_year)]}` : `${geo.properties.name}: N/A`;
     console.log(tooltipText);
+    tooltip.style("opacity", 1)
     setTooltipContent(tooltipText);
   };
 
   const handleMouseLeave = () => {
+    tooltip.style("opacity", 0)
     setTooltipContent("");
   };
 
@@ -97,8 +111,9 @@ const ChoroplethMap = () => {
           </Geographies>
         )}
       </ComposableMap>
+      
       <div style={{ position: 'relative' }}>
-        <Tooltip style={{ visibility: 'visible', position: 'absolute', top: '0', left: '0' }} className="h-full w-full bg-white">{tooltipContent}</Tooltip>
+        <Tooltip style={{ visibility: 'visible', position: 'absolute', top: '50', left: '50' }} className="h-full w-full bg-pink">{tooltipContent}</Tooltip>
       </div>
     </div>
   );
