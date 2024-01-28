@@ -20,6 +20,7 @@ case $1 in
     ./bin/db create
     npx tailwindcss -o michmoney/static/css/output.css --watch &
     npx webpack --config webpack.config.js --watch &
+    sleep 3
     flask --app michmoney --debug run --host 0.0.0.0 --port 8000
     ;;
 
@@ -27,6 +28,7 @@ case $1 in
     ./bin/db create
     npx tailwindcss -o michmoney/static/css/output.css
     npx webpack --config webpack.config.js
+    sleep 5
     sudo flask --app michmoney --debug run --host 0.0.0.0 --port 80
     ;;
   *)
