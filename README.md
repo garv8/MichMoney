@@ -1,4 +1,5 @@
 # MichMoney
+https://github.com/garv8/MichMoney/assets/78529221/a48bcc91-647c-452a-910b-d1233547cc7d
 
 ## Inspiration
 We were inspired by the democratization of stocks and cryptocurrencies in the wake of the popularization of platforms like Robinhood and CoinBase to bring Forex into the hands of the people. Additionally, we want to create a world where the average person can extract the same amount of actionable insights out of earnings calls as the industry members who spend all their time spewing murky financial jargon.
