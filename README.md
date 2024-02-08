@@ -1,5 +1,4 @@
 # MichMoney
-![SpartaHack](https://github.com/garv8/MichMoney/assets/78529221/f756ba3c-8d76-4f66-9f3e-24c71c3c5edb)
 
 https://github.com/garv8/MichMoney/assets/78529221/a48bcc91-647c-452a-910b-d1233547cc7d
 
